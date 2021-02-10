@@ -10,20 +10,36 @@ def retornaLayout (tela, corLinhas, largura, altura):
     pygame.draw.rect(tela, corLinhas, [2, altura/4, (largura/4)-50, altura/2], 6) #trave da esquerda
     pygame.draw.rect(tela, corLinhas, [(largura-4)-(largura/4 -50), altura/4, (largura/4)-50, altura/2], 6) #trave da direita
 
+class Jogador(object):
+    def __init__(self, x, y, tela, cor):
+        pygame.draw.rect(tela,cor , [x, y, 40, 40])
+        self.horizontal = x
+        self.vertical = y
+        self.tela = tela
+        self.cor = cor
+    def movimento(self, x, y):
+        pygame.draw.rect(self.tela, self.cor, [self.horizontal + x, self.vertical + y, 40, 40])
+
+
 pygame.init()
 tamanho = largura, altura = 1350, 680
-color = 110, 222, 000
-corLinhas = 242, 242,242
+color = 10, 200, 5
+corLinhas = 240, 240,240
 tela = pygame.display.set_mode(tamanho)
 pygame.display.set_caption('UTEBO')
 
 tela.fill(color)
 
 retornaLayout(tela,corLinhas, tamanho[0], tamanho[1])
+
+jogador1 = Jogador(tamanho[0]/4, tamanho[1]/2 - 20, tela, "#0000FF")
+jogador2 = Jogador(tamanho[0]*2/3, tamanho[1]/2 - 20, tela, "#FFFF00")
+
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
-
+        # if (event.type == pygame.KEYUP and event.key == pygame.K_a):
+    
     pygame.display.flip()
     
     
