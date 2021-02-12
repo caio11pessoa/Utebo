@@ -18,9 +18,16 @@ class Jogador(object):
         self.tela = tela
         self.cor = cor
     def movimento(self, x, y):
-        pygame.draw.rect(self.tela, self.cor, [self.horizontal + x, self.vertical + y, 40, 40])
+        self.horizontal += x
+        self.vertical += y
+        pygame.draw.rect(self.tela, self.cor, [self.horizontal, self.vertical, 40, 40])
 
 
+def testeVelocidade (velocidade):
+    if(velocidade ==0):
+        return 1
+    else:
+        return 0
 pygame.init()
 tamanho = largura, altura = 1350, 680
 color = 10, 200, 5
@@ -35,11 +42,73 @@ retornaLayout(tela,corLinhas, tamanho[0], tamanho[1])
 jogador1 = Jogador(tamanho[0]/4, tamanho[1]/2 - 20, tela, "#0000FF")
 jogador2 = Jogador(tamanho[0]*2/3, tamanho[1]/2 - 20, tela, "#FFFF00")
 
+esquerda1 = False
+cima1 = False
+direita1 = False
+baixo1 = False
+esquerda2 = False
+cima2 = False
+direita2 = False
+baixo2 = False
+movimentoHorizonal1 = 0
+movimentoHorizonal2 = 0
+movimentoVertical1 = 0
+movimentoVertical2 = 0
 while 1:
+    tela.fill(color)
+    retornaLayout(tela,corLinhas, tamanho[0], tamanho[1])
+    jogador1.movimento(movimentoHorizonal1,movimentoVertical1)
+    jogador2.movimento(movimentoHorizonal2,movimentoVertical2)
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
-        # if (event.type == pygame.KEYUP and event.key == pygame.K_a):
-    
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_a):
+            movimentoHorizonal1 = -testeVelocidade(movimentoHorizonal1)
+
+        if (event.type == pygame.KEYUP and event.key == pygame.K_a):
+            movimentoHorizonal1 = testeVelocidade(movimentoHorizonal1)
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_w):
+            movimentoVertical1 = -testeVelocidade(movimentoVertical1)
+
+        if (event.type == pygame.KEYUP and event.key == pygame.K_w):
+            movimentoVertical1 = testeVelocidade(movimentoVertical1)
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_s):
+            movimentoVertical1 = testeVelocidade(movimentoVertical1)
+
+        if (event.type == pygame.KEYUP and event.key == pygame.K_s):
+            movimentoVertical1 = -testeVelocidade(movimentoVertical1)
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_d):
+            movimentoHorizonal1 = testeVelocidade(movimentoHorizonal1)
+
+        if (event.type == pygame.KEYUP and event.key == pygame.K_d):
+            movimentoHorizonal1 = -testeVelocidade(movimentoHorizonal1)
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT):
+            movimentoHorizonal2 = -testeVelocidade(movimentoHorizonal2)
+
+        if (event.type == pygame.KEYUP and event.key == pygame.K_LEFT):
+            movimentoHorizonal2 = testeVelocidade(movimentoHorizonal2)
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_UP):
+            movimentoVertical2 = -testeVelocidade(movimentoVertical2)
+
+        if (event.type == pygame.KEYUP and event.key == pygame.K_UP):
+            movimentoVertical2 = testeVelocidade(movimentoVertical2)
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN):
+            movimentoVertical2 = testeVelocidade(movimentoVertical2)
+
+        if (event.type == pygame.KEYUP and event.key == pygame.K_DOWN):
+            movimentoVertical2 = -testeVelocidade(movimentoVertical2)
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT):
+            movimentoHorizonal2 = testeVelocidade(movimentoHorizonal2)
+
+        if (event.type == pygame.KEYUP and event.key == pygame.K_RIGHT):
+            movimentoHorizonal2 = -testeVelocidade(movimentoHorizonal2)
+
     pygame.display.flip()
     
     
